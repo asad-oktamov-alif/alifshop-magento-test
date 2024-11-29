@@ -4,6 +4,8 @@
 $imagePath = $block->getLogoUrl();
 $installmentText = $block->getInstallmentInfo();
 $installmentAmount = $block->getInstallmentAmount();
+$numberOfInstallments = $block->getNumberOfInstallments();
+$productId = $block->getProductId();
 ?>
 
 <style>
@@ -28,5 +30,16 @@ $installmentAmount = $block->getInstallmentAmount();
         <span class="alifshop-installment-amount"><?= $installmentAmount; ?></span>
     </p>
 </div>
+
+<script>
+    document.body.addEventListener('click', (event) => {
+        if (event.target.classList.contains('swatch-option')) {
+            const mainPrice = document.getElementById('product-price-' + <?= $productId ?>).querySelector('.price');
+            const price = mainPrice.innerHTML.match(/-?\d+(\.\d+)?/);
+            const installmentAmount = document.querySelector('.alifshop-installment-amount').querySelector('.price');
+            installmentAmount.innerHTML = `PKR ${(parseFloat(price[0]) / <?= $numberOfInstallments; ?>).toFixed(2)}`;
+        }
+    });
+</script>
 
 <?php endif; ?>

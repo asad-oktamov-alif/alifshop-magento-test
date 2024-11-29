@@ -60,10 +60,10 @@ class InstallmentBlock extends Template
         $installmentInfo = $this->_helper->getAlifShopConfig("product_page_installement_instructions");
         return $installmentInfo;
     }
-    
+
     public function canShowBlock() {
         $product = $this->getProduct();
-        return $product->getId() 
+        return $product->getId()
             && $this->getIsActive()
             && $this->getInstallmentInfo()
             && !$this->_helper->hasSpecialPrice($product)
@@ -72,6 +72,17 @@ class InstallmentBlock extends Template
 
     public function getLogoUrl() {
         return $this->getViewFileUrl('AlifShop_AlifShop::images/alif-shop.svg');
+    }
+
+    public function getNumberOfInstallments()
+    {
+        return $this->numberOfInstallments;
+    }
+
+    public function getProductId()
+    {
+        $product = $this->getProduct();
+        return $product->getId();
     }
 
 }
