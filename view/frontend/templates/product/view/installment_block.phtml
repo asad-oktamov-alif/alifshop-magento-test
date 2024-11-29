@@ -1,0 +1,45 @@
+<?php if($block->canShowBlock()): ?>
+
+<?php
+$imagePath = $block->getLogoUrl();
+$installmentText = $block->getInstallmentInfo();
+$installmentAmount = $block->getInstallmentAmount();
+$numberOfInstallments = $block->getNumberOfInstallments();
+$productId = $block->getProductId();
+?>
+
+<style>
+    .alifshop-installment-text {
+        font-weight: 600;
+    }
+
+    .alifshop-installment-text {
+        padding-top: 10px;
+    }
+
+    .alifshop-installment-amount {
+        color: green;
+    }
+</style>
+
+<div class="installment-block">
+    <img class="alifshop-logo" src="<?= $escaper->escapeUrl($imagePath) ?>" alt="Alif Shop Logo" />
+    <br/>
+    <p class="alifshop-installment-text">
+        <?=  $installmentText . " " ?>
+        <span class="alifshop-installment-amount"><?= $installmentAmount; ?></span>
+    </p>
+</div>
+
+<script>
+    document.body.addEventListener('click', (event) => {
+        if (event.target.classList.contains('swatch-option')) {
+            const mainPrice = document.getElementById('product-price-' + <?= $productId ?>).querySelector('.price');
+            const price = mainPrice.innerHTML.match(/-?\d+(\.\d+)?/);
+            const installmentAmount = document.querySelector('.alifshop-installment-amount').querySelector('.price');
+            installmentAmount.innerHTML = `PKR ${(parseFloat(price[0]) / <?= $numberOfInstallments; ?>).toFixed(2)}`;
+        }
+    });
+</script>
+
+<?php endif; ?>
