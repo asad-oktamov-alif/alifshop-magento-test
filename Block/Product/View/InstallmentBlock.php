@@ -69,7 +69,10 @@ class InstallmentBlock extends Template
             && !$this->_helper->hasSpecialPrice($product)
             && !$this->_helper->hasCatalogPriceRule($product);
     }
-
+    public function getMaxDiscountCountForOrder()
+    {
+        return $this->_helper->getMaxDiscountNumberForOrder();
+    }
     public function getLogoUrl() {
         return $this->getViewFileUrl('AlifShop_AlifShop::images/alif-shop.svg');
     }

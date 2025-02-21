@@ -214,32 +214,40 @@ class Data
     private function isSpecialPriceValid($product) {
         $specialPrice = $product->getSpecialPrice();
         $regularPrice = $product->getPrice();
-
+        $maxDiscount = $this->getMaxDiscountNumberForOrder();
         // Check if special price is set and less than regular price
         if ($specialPrice && $specialPrice < $regularPrice) {
             // Get special from and to dates
+
             $specialFromDate = $product->getSpecialFromDate();
             $specialToDate = $product->getSpecialToDate();
-
             // Get current date
             $currentDate = new \DateTime();
+            $discount = ($regularPrice - $specialPrice) / $regularPrice * 100;
 
+            // Validate special price based on the date range
+            if (($specialFromDate === null || $currentDate >= $specialFromDate) &&
+                ($specialToDate === null || $currentDate <= $specialToDate) &&
+                $discount > $maxDiscount
+            ) {
+                return true; // Special price is valid
+            }
             // Check if special price is within the date range
-            if ($specialFromDate) {
-                $fromDate = new \DateTime($specialFromDate);
-                if ($currentDate < $fromDate) {
-                    return false; // Special price not yet active
-                }
-            }
+//            if ($specialFromDate) {
+//                $fromDate = new \DateTime($specialFromDate);
+//                if ($currentDate < $fromDate) {
+//                    return false; // Special price not yet active
+//                }
+//            }
+//
+//            if ($specialToDate) {
+//                $toDate = new \DateTime($specialToDate);
+//                if ($currentDate > $toDate) {
+//                    return false; // Special price has expired
+//                }
+//            }
 
-            if ($specialToDate) {
-                $toDate = new \DateTime($specialToDate);
-                if ($currentDate > $toDate) {
-                    return false; // Special price has expired
-                }
-            }
-
-            return true; // Valid special price
+            return false; // Valid special price
         }
 
         return false; // No valid special price
