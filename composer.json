@@ -1,5 +1,5 @@
 {
-    "name": "alifshop/module-alifshop-test",
+    "name": "alifshop-test/module-alifshop-test",
     "version": "1.0.18",
     "description": "AlifShop payment method",
     "type": "magento2-module",
