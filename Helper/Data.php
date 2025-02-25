@@ -223,7 +223,7 @@ class Data
             $specialToDate = $product->getSpecialToDate();
             // Get current date
             $currentDate = new \DateTime();
-            $discount = ($regularPrice - $specialPrice) / $regularPrice * 100;
+            $discount = $regularPrice/$specialPrice * 100;
 
             // Validate special price based on the date range
             if (($specialFromDate === null || $currentDate >= $specialFromDate) &&

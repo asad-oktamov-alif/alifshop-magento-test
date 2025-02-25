@@ -30,7 +30,7 @@ class PriceChecker
                 // Get special price date range
                 $specialFromDate = $product->getSpecialFromDate() ? new \DateTime($product->getSpecialFromDate()) : null;
                 $specialToDate = $product->getSpecialToDate() ? new \DateTime($product->getSpecialToDate()) : null;
-                $discount = ($price - $specialPrice) / $price * 100;
+                $discount = $price/$specialPrice * 100;
                 // Validate special price based on the date range
                 if (($specialFromDate === null || $currentDate >= $specialFromDate) &&
                     ($specialToDate === null || $currentDate <= $specialToDate) &&
