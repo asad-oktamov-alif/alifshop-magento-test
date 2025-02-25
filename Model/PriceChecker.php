@@ -3,12 +3,13 @@
 namespace AlifShop\AlifShop\Model;
 
 use Magento\Checkout\Model\Session as CheckoutSession;
+use AlifShop\AlifShop\Helper\Data;
 
 class PriceChecker
 {
     protected $checkoutSession;
 
-    public function __construct(CheckoutSession $checkoutSession)
+    public function __construct(CheckoutSession $checkoutSession, public Data $helper)
     {
         $this->checkoutSession = $checkoutSession;
     }
