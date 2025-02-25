@@ -36,7 +36,23 @@ $canShowBlock = $block->canShowBlock();
 
     var maxDiscount = <?= $maxDiscountCount ?>;
     function parseCurrency(currencyString) {
-        return parseFloat(currencyString.replace(/[^0-9,.-]/g, '').replace(',', '.'));
+        let match = currencyString.match(/[\d,\.]+/g);
+        if (!match) return null;
+
+        let rawNumber = match[0];
+        if (rawNumber.includes(',') && rawNumber.includes('.')) {
+            if (rawNumber.lastIndexOf(',') > rawNumber.lastIndexOf('.')) {
+                rawNumber = rawNumber.replace(/\./g, '').replace(',', '.');
+            } else {
+                rawNumber = rawNumber.replace(/,/g, '');
+            }
+        } else {
+            if (rawNumber.includes(',')) {
+                rawNumber = rawNumber.replace(',', '.');
+            }
+        }
+
+        return parseFloat(rawNumber);
     }
 
     function checkShowWidget() {
