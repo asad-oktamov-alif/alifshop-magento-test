@@ -35,7 +35,7 @@ class PriceChecker
                     ($specialToDate === null || $currentDate <= $specialToDate) &&
                     $discount > $maxDiscount
                 ) {
-                    return true; // Special price is valid
+                    return $maxDiscount; // Special price is valid
                 }
             }
         }
